@@ -36,7 +36,7 @@ return (  //returns task data
   
 };
 
-export default TaskItem;   ///makes this COMPONENT available to be imported to other files
+export default TaskItem;   //makes this COMPONENT available to be imported to other files
 
 
 

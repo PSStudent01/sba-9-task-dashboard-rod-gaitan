@@ -1,6 +1,6 @@
 import type { TaskListProps } from '../../types'; //Imports the types we need from index.ts
                                                 // Again, use 'type' keyword to avoid the error
-import TaskItem from '../TaskItem/TaskItem';  //Imports the 'TaskItem' component created in 'TaskItem.tsx'
+import TaskItem from './TaskItem'; //Imports the 'TaskItem' component created in 'TaskItem.tsx'
 import { useState } from 'react';  //Imports the 'useState' hook from React. It allows the component to REMEMBER and TRACk values over time, (ex the current filter selections)
 import { filterTasks, sortTasks } from "../../utils/taskUtils"; // Imports 2 utility functions, that were created in 'taskUtils.ts'
 
@@ -26,59 +26,62 @@ const TaskList = ({  // declares function component. This is now a function you 
   );
 
 
+ // Apply filters
+  const filteredTasks = filterTasks(tasks, filterOptions); // calling utility function  'filterTasks', while passing 'tasks' and the current filter selections 'filterOptions'. 
+                                                           // then returns only the TASKS that match the FILTERS and stores them in 'filteredTasks'.
 
+  // Apply sorting to filtered tasks
+  const sortedTasks = sortTasks(filteredTasks, sortBy);  // calling utility function  'sortTasks', while passing 'filteredTasks' and 'sortBy'. 
+                                                        // then takes the already filtered tasks and sorts them based on the current 'sortBy' value. 
+                                                        // Note: must filter 1st then sort 2nd.
 
+  return (                                              // it starts the JSX. 
+                                                      
+    <div>                                               {/*} Note, every component must return JSX wrapped in a "single parent element", ITC that parent element is the <div>.*/}
+      <h2>Tasks</h2>
 
+      {/* Sorting event */}
+      <label >          {/* using <label> element rather than <div> to wrap the sort dropdown for acessibility*/}
+        Sort by:     
+        {/* - '<select'  marks the beginning of controlled dropdown whose current value is always whatever 'sortBy' state is set to.    
+        - 'controlled component', bc dropdown’s selected value is NOT managed by the DOM, rather by the state.
+        -  when the user selects a different option, it gets stored in 'e', then the value of 'e' passed down to 'setSortBy' state.... 
+        - and that selected option gets stored in 'e.target.value' as a string only and validated as one of 3 possible 'asserted type' options  "createdAt" | "dueDate" | "priority" */}
+        <select              
+          value={sortBy} 
+          onChange={(e) =>     
+            setSortBy(e.target.value as "createdAt" | "dueDate" | "priority")
+          }
+         
+        >
+          <option value="createdAt">Created Date</option> {/*1 of 3 dropdown options, the value "createdAt" is what gets stored in state, */}
+          <option value="dueDate">Due Date</option>  {/*1 of 3 dropdown options, the value "dueDate" is what gets stored in state, */}
+          <option value="priority">Priority</option>  {/*1 of 3 dropdown options, the value "priority" is what gets stored in state, */}
+        </select>
+      </label>
+      
 
-const filteredTasks = tasks.filter((task) => {                 // Creates a new array called 'filteredTasks'
-                                                                // '.filter()' = is a 'JavaScript array method' that loops through every task and keeps only the ones that pass the test inside                                                   
-
-const matchesStatus = statusFilter === '' || task.status === statusFilter; // creates a condition 'matchesStatus' that tests... 
-                                                                           // if ' statusFilter === '' ' (no status filter is applied)
-                                                                           // OR if ' task.status === statusFilter ' ('statusFilter' matches "task's status")
-                                                                           // FILTER passes if either of these is true, else it fails and won't return anything, becoming a falsy
-                                                                           
-const matchesPriority = priorityFilter === '' || task.priority === priorityFilter; // creates a condition 'matchesPriority' that tests... 
-                                                                           // if ' priorityFilter === '' ' (no priority filter is applied)
-                                                                           // OR if ' task.priority === priorityFilter ' ('priorityFilter' matches "priority")
-                                                                           // FILTER passes if either of these is true, else it fails and won't return anything, becoming a falsy
-
-return matchesStatus && matchesPriority; // and bc BOTH FILTERs must be true, if any of the two is falsy, it will make this statement false
-                                        // and therefore the TASK WILL NOT be included  in 'filteredTasks' array
-                                        // The task is only kept in filteredTasks if it matches both the status AND priority filter
-
- });
-
-
-return (                                                //Component returns JSX wrapped in a div
-  <div>
-    <TaskFilter onFilterChange={handleFilterChange} />  
-    {/*Renders the TaskFilter component */}
-     {/*Passes handleFilterChange as the onFilterChange prop */}
-      {/*This is how TaskFilter knows what function to call when the user changes a filter */}
-    {filteredTasks.map((task) => (                       
-    <TaskItem                                         
-    key={task.id}                                                                                     
-      task={task}                                    
-      onStatusChange={onStatusChange}                   
-    onDelete={onDelete}                             
-
-/>
-))} 
-
-</div>
+      {/* List of Tasks */}
+       {/*- '{sortedTasks.length ? (' = a 'ternary operator' that checks if there are any tasks to render. 'sortedTasks.length' is 'falsy' when empty, any other number is 'truthy'.
+        - 'sortedTasks.map((task) => (' = says " hey for each and every 'task' in the 'sortedTasks' array, loop through and render a 'TaskItem' component"
+        - 'key={task.id}' is required to track list items. 
+        - while 'task', 'onDelete', and 'onStatusChange' are passed down as props. 
+       */}
+      {sortedTasks.length ? ( 
+        sortedTasks.map((task) => (   
+          <TaskItem
+            key={task.id}
+            task={task}
+            onDelete={onDelete}
+            onStatusChange={onStatusChange}
+          />
+        ))
+      ) : (
+        <p >No tasks found.</p> //" hey if If there are no tasks, displays this message 'No tasks found' instead''."
+      )}
+    </div>
   );
-}
+};
 
-export default TaskList;  //makes this COMPONENT available to be imported to other files
+export default TaskList; //makes this COMPONENT available to be imported to other files
 
-
-/*
-#
-Check my logic here later:
-// so if condition '!== undefined' is FALSE, meaning it is being provided
-// so if condition '!== undefined' is TRUE, meaning it is being provided 
-
-
-# Scratchpad
-    {filteredTasks.map((task) => (                       
