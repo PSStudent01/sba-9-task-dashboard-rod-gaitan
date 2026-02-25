@@ -38,16 +38,31 @@ export interface TaskItemProps {
 
 export interface TaskListProps {
   tasks: Task[];    // 'tasks' prop holds an array of objects from interface 'Task'
-  filterOptions: FilterOptions;
-  onDelete: (id: string) => void;
-  onStatusChange: (id: string, status: Task["status"]) => void;
+  filterOptions: FilterOptions; //shows the currently selected filters.  all those CURRENT selections are stored as one object in "Dashboard's state", whose object shape is defined by 'FilterOptions'interface 
+                                // !!!!! 'TaskList' uses it to decide which tasks to display!!!!!            
+  onDelete: (id: string) => void; //  plays the role of middle man, receiving the functions from Dashboard and passing them along to each TaskItem. 
+  onStatusChange: (id: string, status: Task["status"]) => void;  //same here but for 'onStatusChange'...plays the role of middle man, receiving the functions from Dashboard and passing them along to each TaskItem. 
 }
 
 export interface TaskFormProps {
-  onAddTask: (formData: TaskFormData) => void;
+  onAddTask: (formData: TaskFormData) => void; //A function 'onAddTask' that receives form data and creates a new task from it, based on object shape 'TaskFormData'.
 }
 
 export interface TaskFilterProps {
-  filterOptions: FilterOptions;
-  onFilterChange: (newFilters: FilterOptions) => void;
+  filterOptions: FilterOptions;  // !!!!!!!! 'TaskFilter' uses it to decide which filter buttons to highlight !!!!!!!!
+  onFilterChange: (newFilters: FilterOptions) => void; // prop 'onFilterChange' is a function that has 1 parameter and takes 'FilterOptions' interface (object shape) as an argument
+                                                        // it's triggered whenever the user changes a filter selections, passing the new filter selections back up to Dashboard.
 }
+
+
+
+
+/*
+TaskList - filterOptions: FilterOptions
+TaskFilter - filterOptions: FilterOptions 
+- Same data, but 2 different purposes. 
+- It's like a TV remote signal
+-- the TV uses it to change the channel, 
+-- but the LED on the remote also uses it to confirm the button was pressed. 
+- Same signal, but 2 different reactions!!!!!
+*/
