@@ -37,7 +37,7 @@ const TaskList = ({  // declares function component. This is now a function you 
 
   return (                                              // it starts the JSX. 
                                                       
-    <div>                                               {/*} Note, every component must return JSX wrapped in a "single parent element", ITC that parent element is the <div>.*/}
+    <div>                                               {/* Note, every component must return JSX wrapped in a "single parent element", ITC that parent element is the <div>.*/}
       <h2>Tasks</h2>
 
       {/* Sorting event */}
