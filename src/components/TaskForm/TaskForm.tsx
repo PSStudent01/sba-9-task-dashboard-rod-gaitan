@@ -2,6 +2,7 @@ import { useState } from 'react';  //Imports the 'useState' hook from React. It 
 import type { TaskFormProps, TaskFormData } from '../../types';  // Importing the a 'prop interface' and a data 'interface'
 import { validateTaskForm } from '../../utils/taskUtils';  // imports utility function, that was created in 'taskUtils.ts'
 
+
 const TaskForm = ({ onAddTask }: TaskFormProps) => {  // a function 'TaskForm' is created that destructures/extracts 'onAddTask' prop from 'TaskFormProps' props
                                                     // and this the function 'Dashboard' component will pass down to handle a'dding tasks'.
 
@@ -26,6 +27,7 @@ const [errors, setErrors] = useState<string[]>([]); // - 'errors' = current stat
 // - 'useState<TaskFormData>' = TS telling 'useState' what 'shape' the 'state' will be. So TS now knows 'formData' will always look like 'TaskFormData interface' as it will have 
 // ....title, description, status, priority, and dueDate  
 // initial values when the form first loads. When the user opens the form for the first time:
+
 
 const handleSubmit = (e: React.FormEvent) => {   //'handleSubmit' = a function that handles 'form submissions'. 
                                                 // 'e'=  is the 'form event' and 
@@ -127,4 +129,4 @@ return (          // it starts the JSX.
 
 };
 
-export default TaskForm;
+export default TaskForm; //makes this COMPONENT available to be imported to other files

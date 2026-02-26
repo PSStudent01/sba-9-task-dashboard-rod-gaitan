@@ -45,7 +45,7 @@ export interface TaskListProps {
 }
 
 export interface TaskFormProps {
-  onAddTask: (formData: TaskFormData) => void; //A function 'onAddTask' that receives form data and creates a new task from it, based on object shape 'TaskFormData'.
+  onAddTask: (formData: TaskFormData) => void; //A prop function 'onAddTask' that receives form data and creates a new task from it, based on object shape 'TaskFormData'.
 }
 
 export interface TaskFilterProps {

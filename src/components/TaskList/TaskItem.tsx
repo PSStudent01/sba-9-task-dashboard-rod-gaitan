@@ -1,4 +1,4 @@
-import type { TaskItemProps, Task } from "../../types";  // Importing the prop interface form 'index.ts'.
+import type { TaskItemProps, Task } from "../../types"; 
 import { formatDate } from "../../utils/taskUtils"; //date formatting utility from 'taskUtils.ts'
 
 const TaskItem = ({ task, onDelete, onStatusChange }: TaskItemProps) => { //Defines the component. 
