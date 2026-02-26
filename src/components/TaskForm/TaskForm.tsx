@@ -55,14 +55,12 @@ const handleSubmit = (e: React.FormEvent) => {   //'handleSubmit' = a function t
     setErrors([]);  // Clears any previous error messages.
   };
 
-
-return (          // it starts the JSX. 
-    <div>          {/* component returns JSX wrapped in a "single parent element"*/}
+return (
+    <div className="task-form">
       <h2>Add New Task</h2>
 
-      {/* Display validation errors if any */}
       {errors.length > 0 && (
-        <div>
+        <div className="error-list">
           {errors.map((error) => (
             <p key={error}>{error}</p>
           ))}
@@ -71,7 +69,7 @@ return (          // it starts the JSX.
 
       <form onSubmit={handleSubmit}>
         
-        <div>
+        <div className="form-group">
           <label>Title:</label>
           <input
             type="text"
@@ -80,7 +78,7 @@ return (          // it starts the JSX.
           />
         </div>
 
-        <div>
+        <div className="form-group">
           <label>Description:</label>
           <textarea
             value={formData.description}
@@ -88,7 +86,7 @@ return (          // it starts the JSX.
           />
         </div>
 
-        <div>
+        <div className="form-group">
           <label>Status:</label>
           <select
             value={formData.status}
@@ -100,7 +98,7 @@ return (          // it starts the JSX.
           </select>
         </div>
 
-        <div>
+        <div className="form-group">
           <label>Priority:</label>
           <select
             value={formData.priority}
@@ -112,7 +110,7 @@ return (          // it starts the JSX.
           </select>
         </div>
 
-        <div>
+        <div className="form-group">
           <label>Due Date:</label>
           <input
             type="date"
@@ -126,6 +124,7 @@ return (          // it starts the JSX.
       </form>
     </div>
   );
+
 
 };
 

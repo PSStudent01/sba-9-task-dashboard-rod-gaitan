@@ -4,42 +4,32 @@ const TaskFilter = ({ filterOptions, onFilterChange }: TaskFilterProps) => {    
                                                                                 // - 'filter Options' = the current filter state passed DOWN from Dashboard
                                                                                  // - 'onFilterChange' = a function passed DOWN from Dashboard to update the filter state
 
+return (
+    <div className="task-filter">
 
-  return (            // it starts the JSX. 
-    <div>               {/* component returns JSX wrapped in a "single PARENT element"*/}
-      <h2>Filters</h2>   {/* 'Filters' HTML header*/}
-
-    <div>
+      <div className="filter-group">
         <label>Search:</label>
-        <input              
-          type="text"  // 'type' = depicts a controlled text input, controlled by React (Not by DOM). 
-          value={filterOptions.searchQuery}  // 'value' = displays the current search query. 
-          onChange={(e) => onFilterChange({ ...filterOptions, searchQuery: e.target.value })}  // When the user types, 'onChange' calls 'onFilterChange' WHILE passing a COPY of all 'current filters' using the spread with just searchQuery updated. 
-                                                                                                // '...filterOptions' =  spread that keeps the other filters intact.
+        <input
+          type="text"
+          value={filterOptions.searchQuery}
+          onChange={(e) => onFilterChange({ ...filterOptions, searchQuery: e.target.value })}
         />
       </div>
 
-    {/* Status Filter */}
-      <div>
+      <div className="filter-group">
         <label>Status:</label>
-        <select    // 'select' = depicts a controlled text input, controlled by React (Not by DOM). 
-          value={filterOptions.status}  // 'value' = displays the current search query.
-          onChange={(e) => onFilterChange({ ...filterOptions, status: e.target.value as FilterOptions["status"] })}  // When the user types, 'onChange' calls 'onFilterChange' WHILE passing a COPY of all 'current filters' using the spread with just searchQuery updated. 
-                                                                                                // '...filterOptions' =  spread that keeps the other filters intact.
-                                                                                                // Whenever the user selects the dropdown option , React asigns an event object (e).
-                                                                                                // and that selected option gets stored in 'e.target.value' as a string only
-                                                                                                // that's where 'Task["status"]' comes in to validate that the string can only be on eof 3 string values ("todo" | "in-progress" | "completed")
+        <select
+          value={filterOptions.status}
+          onChange={(e) => onFilterChange({ ...filterOptions, status: e.target.value as FilterOptions["status"] })}
         >
-          <option value="all">All</option>  {/*is an HTML element that represents one choice in a dropdown (<select>), in this case that choice is 'all '. This is what 'e.target.value' will be in the 'onChange' handler.
-                                            // Note, here the user can the user can choose to not filter at all.*/}
-          <option value="todo">Todo</option> {/* Same logic as above. 'value="todo"' = the value that will update the filter’s status. */}
-          <option value="in-progress">In Progress</option> {/* Same logic as above. 'value="in-progress"' = the value that will update the filter’s status. */}
-          <option value="completed">Completed</option>  {/* Same logic as above. 'completed"' = the value that will update the filter’s status. */}
+          <option value="all">All</option>
+          <option value="todo">Todo</option>
+          <option value="in-progress">In Progress</option>
+          <option value="completed">Completed</option>
         </select>
       </div>
 
-      {/* Priority Filter - very similar logic to the above, but for 'Priority */}
-      <div>
+      <div className="filter-group">
         <label>Priority:</label>
         <select
           value={filterOptions.priority}
@@ -54,16 +44,12 @@ const TaskFilter = ({ filterOptions, onFilterChange }: TaskFilterProps) => {    
 
     </div>
   );
+ 
+
 
 };
 
 export default TaskFilter; //makes this COMPONENT available to be imported to other files
-
-
-
-
-
-
 
 
 

@@ -1,8 +1,8 @@
 /* This is the most important one since it owns all the state and composes everything together.*/
 
 /* IMPORTS */
-import { useState } from 'react';
-import type { Task, FilterOptions } from '../../types';
+import { useState, useEffect } from 'react';
+import type { Task, FilterOptions, TaskFormData  } from '../../types';
 import { createTask } from '../../utils/taskUtils';  //Imports utility function that builds a 'complete Task object' from form data.
 import TaskForm from '../TaskForm/TaskForm';  // child components that Dashboard will need to combine with the other 2.
 import TaskFilter from '../TaskFilter/TaskFilter'; // child components that Dashboard will need to combine with the other 2.
@@ -11,13 +11,32 @@ import TaskList from '../TaskList/TaskList'; // child components that Dashboard 
 /* STATE DECLARATIONS */
 const Dashboard = () => {
 
-    const [tasks, setTasks] = useState<Task[]>([]); // main list of all tasks that starts as an empty array.
+    //const [tasks, setTasks] = useState<Task[]>([]); // main list of all tasks that starts as an empty array.
+    // for localStorage funcitonality
+    const [tasks, setTasks] = useState<Task[]>(() => {
+    const savedTasks = localStorage.getItem('tasks');
+    return savedTasks ? JSON.parse(savedTasks) : [];
+    });
 
     const [filterOptions, setFilterOptions] = useState<FilterOptions>({
     status: 'all', // The current filter selection that starts with everything set to 'all' indicating that no filters are active.
     priority: 'all',  // The current filter selection that starts with everything set to 'all' indicating that no filters are active.
     searchQuery: '', // not a filter selection  
   });
+
+      // for localStorage funcitonality
+  useEffect(() => {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+    }, [tasks]);
+
+  //darkmode sate declaration
+  const [darkMode, setDarkMode] = useState(false);
+
+  // useEffect to apply the dark mode class
+  useEffect(() => {
+  document.body.classList.toggle('dark', darkMode);
+}, [darkMode]);
+
 
 /* EVENT HANDLERS */
 const handleAddTask = (formData: TaskFormData) => {  // function 'handleAddTask 'that takes one param 'formData' of type 'TaskFormData' 
@@ -40,3 +59,47 @@ const handleStatusChange = (id: string, status: Task["status"]) => {
 const handleFilterChange = (newFilters: FilterOptions) => {
   setFilterOptions(newFilters);
 };
+
+
+return (
+    <div className="dashboard">
+      <h1>Task Management Dashboard</h1>
+      
+      <h1>Task Management Dashboard
+            <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
+                {darkMode ? ' Light Mode' : ' Dark Mode'}
+            </button>
+        </h1>
+
+
+      {/* Task Statistics */}
+      <div className="stats">
+        <div className="stat-card">
+          <p>Total Tasks</p>
+          <span>{tasks.length}</span>
+        </div>
+        <div className="stat-card">
+          <p>Todo</p>
+          <span>{tasks.filter((task) => task.status === 'todo').length}</span>
+        </div>
+        <div className="stat-card">
+          <p>In Progress</p>
+          <span>{tasks.filter((task) => task.status === 'in-progress').length}</span>
+        </div>
+        <div className="stat-card">
+          <p>Completed</p>
+          <span>{tasks.filter((task) => task.status === 'completed').length}</span>
+        </div>
+      </div>
+
+      <TaskForm onAddTask={handleAddTask} />
+      <TaskFilter filterOptions={filterOptions} onFilterChange={handleFilterChange} />
+      <TaskList tasks={tasks} filterOptions={filterOptions} onDelete={handleDeleteTask} onStatusChange={handleStatusChange} />
+
+    </div>
+  );
+};
+
+
+
+export default Dashboard;

@@ -1,73 +1,66 @@
-# React + TypeScript + Vite
+# Task Management Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A task management dashboard built with React and TypeScript.
 
-Currently, two official plugins are available:
+#
+Tech Stack
+- React
+- TypeScript
+- Vite
+- Plain CSS
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#
+Installation
+- Clone the repository:
+*
+git clone https://github.com/PSStudent01/sba-9-task-dashboard-rod-gaitan.git
 
-## React Compiler
+- Install dependencies:
+*
+npm install
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Start the development server:
+*
+npm run dev
 
-## Expanding the ESLint configuration
+- Open your browser at 'http://localhost:5173'
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# 
+Features
+- Adding, deleting, and updating tasks
+- Filtering tasks by status, priority, and search query
+- Sorting tasks by date, due date, or priority
+- Task stats
+- localStorage persistence
+- Light and dark mode toggle
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+#
+Project Structure
+*
+sba-9-task-dashboard-rod-gaitan/
+    ├── src/
+    │   ├── components/
+    │   │   ├── TaskList/
+    │   │   │   ├── TaskList.tsx
+    │   │   │   └── TaskItem.tsx
+    │   │   ├── TaskForm/
+    │   │   │   └── TaskForm.tsx
+    │   │   ├── TaskFilter/
+    │   │   │   └── TaskFilter.tsx
+    │   │   └── Dashboard/
+    │   │       └── Dashboard.tsx
+    │   ├── types/
+    │   │   └── index.ts
+    │   ├── utils/
+    │   │   └── taskUtils.ts
+    │   ├── App.tsx
+    ├── main.tsx
+    └── package.json
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+#
+## Component Props
+- TaskItem = receives a single 'task' object, 'onDelete' and 'onStatusChange' callback functions
+- TaskList = receives 'tasks' array, 'filterOptions', 'onDelete' and 'onStatusChange'
+- TaskForm = receives 'onAddTask' callback function
+- TaskFilter = receives 'filterOptions' and 'onFilterChange' callback function
+- Dashboard = no props, owns all state
