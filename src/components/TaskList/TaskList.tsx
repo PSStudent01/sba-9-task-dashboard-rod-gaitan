@@ -73,3 +73,53 @@ return (
 
 export default TaskList; //makes this COMPONENT available to be imported to other files
 
+
+/*
+return (
+  // every component must return JSX wrapped in a single parent element, ITC that parent element is the <div>
+  <div>
+    <h2>Tasks</h2>
+
+    // using <label> element rather than <div> to wrap the sort dropdown for accessibility
+    <label>
+      Sort by:
+      // '<select' marks the beginning of controlled dropdown whose current value is always whatever 'sortBy' state is set to.
+      // 'controlled component', bc dropdown's selected value is NOT managed by the DOM, rather by the state.
+      // when the user selects a different option, it gets stored in 'e', then the value of 'e' passed down to 'setSortBy' state.
+      // that selected option gets stored in 'e.target.value' as a string only and validated as one of 3 possible 'asserted type' options
+      <select
+        value={sortBy}
+        onChange={(e) =>
+          setSortBy(e.target.value as "createdAt" | "dueDate" | "priority")
+        }
+      >
+        // 'value="createdAt"' is what gets stored in state
+        <option value="createdAt">Created Date</option>
+        // 'value="dueDate"' is what gets stored in state
+        <option value="dueDate">Due Date</option>
+        // 'value="priority"' is what gets stored in state
+        <option value="priority">Priority</option>
+      </select>
+    </label>
+
+    // 'sortedTasks.length ? (' = ternary operator that checks if there are any tasks to render. 'sortedTasks.length' is 'falsy' when empty, any other number is 'truthy'.
+    // 'sortedTasks.map((task) => (' = for each 'task' in 'sortedTasks' array, loop through and render a 'TaskItem' component
+    // 'key={task.id}' is required to track list items
+    // 'task', 'onDelete', and 'onStatusChange' are passed down as props
+    {sortedTasks.length ? (
+      sortedTasks.map((task) => (
+        <TaskItem
+          key={task.id}
+          task={task}
+          onDelete={onDelete}
+          onStatusChange={onStatusChange}
+        />
+      ))
+    ) : (
+      // if there are no tasks, displays this message instead
+      <p>No tasks found.</p>
+    )}
+  </div>
+);
+*/
+

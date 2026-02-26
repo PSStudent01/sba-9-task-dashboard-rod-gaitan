@@ -103,3 +103,62 @@ return (
 
 
 export default Dashboard;
+
+
+
+/* VIP Personal Cpmments:
+// component returns JSX wrapped in a single parent element
+return (
+  <div className="dashboard">
+    <h1>Task Management Dashboard
+      <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
+        {darkMode ? ' Light Mode' : ' Dark Mode'}
+      </button>
+    </h1>
+
+    // Task Statistics section - these update automatically whenever tasks state changes
+    <div className="stats">
+      // 'tasks.length' = total number of tasks in state
+      <div className="stat-card">
+        <p>Total Tasks</p>
+        <span>{tasks.length}</span>
+      </div>
+      // 'tasks.filter((task) => task.status === 'todo').length' = counts only tasks with status 'todo'
+      <div className="stat-card">
+        <p>Todo</p>
+        <span>{tasks.filter((task) => task.status === 'todo').length}</span>
+      </div>
+      // same logic as above but counts only tasks with status 'in-progress'
+      <div className="stat-card">
+        <p>In Progress</p>
+        <span>{tasks.filter((task) => task.status === 'in-progress').length}</span>
+      </div>
+      // same logic as above but counts only tasks with status 'completed'
+      <div className="stat-card">
+        <p>Completed</p>
+        <span>{tasks.filter((task) => task.status === 'completed').length}</span>
+      </div>
+    </div>
+
+    // renders TaskForm component, passes 'handleAddTask' down as 'onAddTask' prop
+    <TaskForm onAddTask={handleAddTask} />
+
+    // renders TaskFilter component, passes current 'filterOptions' and 'handleFilterChange' down as props
+    <TaskFilter
+      filterOptions={filterOptions}
+      onFilterChange={handleFilterChange}
+    />
+
+    // renders TaskList component, passes 'tasks', 'filterOptions', 'handleDeleteTask' and 'handleStatusChange' down as props
+    <TaskList
+      tasks={tasks}
+      filterOptions={filterOptions}
+      onDelete={handleDeleteTask}
+      onStatusChange={handleStatusChange}
+    />
+
+  </div>
+);
+
+
+*/

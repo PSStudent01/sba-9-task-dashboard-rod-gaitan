@@ -129,3 +129,91 @@ return (
 };
 
 export default TaskForm; //makes this COMPONENT available to be imported to other files
+
+
+
+/*  Personal Notes
+// component returns JSX wrapped in a single parent element
+// displays the add task form and any validation errors
+return (
+  <div className="task-form">
+    <h2>Add New Task</h2>
+
+    // if there are validation errors, map through them and display each one
+    {errors.length > 0 && (
+      <div className="error-list">
+        {errors.map((error) => (
+          <p key={error}>{error}</p>
+        ))}
+      </div>
+    )}
+
+    // 'onSubmit={handleSubmit}' = when form is submitted, calls handleSubmit function
+    <form onSubmit={handleSubmit}>
+
+      // 'value={formData.title}' = controlled input, value is managed by React state
+      // 'onChange' = when user types, updates 'title' in formData state using spread operator to keep other fields intact
+      <div className="form-group">
+        <label>Title:</label>
+        <input
+          type="text"
+          value={formData.title}
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+        />
+      </div>
+
+      // same logic as above but for description
+      <div className="form-group">
+        <label>Description:</label>
+        <textarea
+          value={formData.description}
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+        />
+      </div>
+
+      // controlled dropdown for status
+      // 'as TaskFormData["status"]' = type assertion limiting value to only valid status strings
+      <div className="form-group">
+        <label>Status:</label>
+        <select
+          value={formData.status}
+          onChange={(e) => setFormData({ ...formData, status: e.target.value as TaskFormData["status"] })}
+        >
+          <option value="todo">Todo</option>
+          <option value="in-progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
+
+      // same logic as above but for priority
+      // 'as TaskFormData["priority"]' = type assertion limiting value to only valid priority strings
+      <div className="form-group">
+        <label>Priority:</label>
+        <select
+          value={formData.priority}
+          onChange={(e) => setFormData({ ...formData, priority: e.target.value as TaskFormData["priority"] })}
+        >
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+
+      // date input, 'type="date"' renders a date picker in the browser
+      <div className="form-group">
+        <label>Due Date:</label>
+        <input
+          type="date"
+          value={formData.dueDate}
+          onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
+        />
+      </div>
+
+      // 'type="submit"' triggers the form's onSubmit when clicked
+      <button type="submit">Add Task</button>
+
+    </form>
+  </div>
+);
+
+*/
